@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  background: linear-gradient(180deg, #1a1a1a 0%, #2d1b1b 50%, #1a1a1a 100%);
+  color: #e8e8e8;
+  font-size: 15px;
+  line-height: 1.8;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+body::after {
+  content: '👻';
+  position: fixed;
+  font-size: 30px;
+  opacity: 0.1;
+  animation: ghostFloat 20s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ghostFloat {
+  0%, 100% {
+    top: -50px;
+    left: 10%;
+  }
+  25% {
+    top: 50%;
+    left: 80%;
+  }
+  50% {
+    top: 80%;
+    left: 20%;
+  }
+  75% {
+    top: 30%;
+    left: 70%;
+  }
+}
+
+a {
+  color: #0000ff;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #551a8b;
+}

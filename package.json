@@ -1,0 +1,22 @@
+{
+  "name": "thread-of-the-dead",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "test:bedrock": "node test-bedrock.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.654.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

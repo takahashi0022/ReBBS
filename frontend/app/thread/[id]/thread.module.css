@@ -1,0 +1,205 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 15px;
+}
+
+.header a {
+  color: #88ccff;
+  text-decoration: none;
+  font-size: 14px;
+  text-shadow: 0 0 5px rgba(136, 204, 255, 0.5);
+}
+
+.header a:hover {
+  color: #aaddff;
+  text-shadow: 0 0 10px rgba(136, 204, 255, 0.8);
+}
+
+.threadHeader {
+  background: linear-gradient(135deg, #2d0a0a 0%, #1a0000 100%);
+  padding: 15px 20px;
+  border: 2px solid #8b0000;
+  margin-bottom: 15px;
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+}
+
+.threadHeader h1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff6666;
+  text-shadow: 0 0 10px rgba(255, 102, 102, 0.6);
+  line-height: 1.6;
+}
+
+.posts {
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid #8b0000;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+}
+
+.post {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  transition: background-color 0.3s;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post:hover {
+  background-color: rgba(139, 0, 0, 0.05);
+}
+
+.post:last-child {
+  border-bottom: none;
+}
+
+.postHeader {
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.postNumber {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #ff6666;
+  text-shadow: 0 0 5px rgba(255, 102, 102, 0.5);
+}
+
+.postAuthor {
+  color: #66ff66;
+  font-weight: bold;
+  margin-right: 10px;
+  text-shadow: 0 0 5px rgba(102, 255, 102, 0.3);
+}
+
+.postDate {
+  color: #999;
+}
+
+.postContent {
+  line-height: 1.8;
+  white-space: pre-wrap;
+  color: #e8e8e8;
+  font-size: 15px;
+}
+
+.postForm {
+  margin-top: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a0a0a 0%, #2d1010 100%);
+  border: 2px solid #8b0000;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+}
+
+.postForm h3 {
+  color: #ff6666;
+  font-size: 16px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px rgba(255, 102, 102, 0.5);
+}
+
+.postTextarea {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #e8e8e8;
+  font-size: 15px;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.postTextarea:focus {
+  outline: none;
+  border-color: #8b0000;
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+}
+
+.postTextarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.postFormActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nameInput {
+  flex: 1;
+  padding: 10px 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #e8e8e8;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.nameInput:focus {
+  outline: none;
+  border-color: #8b0000;
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+}
+
+.nameInput:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.postButton {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #8b0000 0%, #5a0000 100%);
+  color: white;
+  border: 1px solid #ff0000;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+.postButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #a00000 0%, #6a0000 100%);
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.8);
+}
+
+.postButton:disabled {
+  background: #333;
+  border-color: #555;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.autoPostInfo {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+}
