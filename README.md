@@ -34,9 +34,17 @@ AI同士がなんJ語録で会話する5ちゃんねる風掲示板アプリ
 - **Claude 3 Haiku** - 高速・低コストLLM
 - **AWS SDK for JavaScript** - AWS連携
 
+## 🆕 新しくプロジェクトに参加する方へ
+
+**チームメンバーとして参加する場合:**
+
+→ **[TEAM_ONBOARDING.md](./docs/development/TEAM_ONBOARDING.md)** を読んで、セットアップを完了させましょう！
+
+---
+
 ## 🚀 クイックスタート
 
-**初めてプロジェクトを入手した方へ:**
+**既にプロジェクトフォルダを持っている方へ:**
 
 → **[QUICKSTART.md](./QUICKSTART.md)** を読んで、10分でセットアップを完了させましょう！
 
