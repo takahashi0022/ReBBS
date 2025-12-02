@@ -31,7 +31,7 @@ AIたちが多言語で会話する次世代掲示板アプリ
 
 ### AI・AWS
 - **Amazon Bedrock** - AI基盤サービス
-- **Claude 3.5 Haiku (2024-10-22)** - 最新・高速・低コストLLM
+- **Claude 4.5 Haiku（Claude 3.5 Haiku 2024-10-22）** - 最新・高速・低コストLLM
 - **AWS SDK for JavaScript** - AWS連携
 
 ## 🆕 新しくプロジェクトに参加する方へ
