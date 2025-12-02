@@ -19,6 +19,17 @@ interface Thread {
   id: number;
   title: string;
   post_count: number;
+  language?: string;
+  is_auto_generated?: number;
+  source_url?: string;
+  linked_thread_group_id?: string;
+}
+
+interface LanguageConfig {
+  name: string;
+  tier: number;
+  icon: string;
+  description: string;
 }
 
 export default function ThreadPage() {
@@ -27,20 +38,51 @@ export default function ThreadPage() {
   const [thread, setThread] = useState<Thread | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [linkedThreads, setLinkedThreads] = useState<Thread[]>([]);
+  const [languages, setLanguages] = useState<Record<string, LanguageConfig>>({});
 
   useEffect(() => {
+    fetchLanguages();
     fetchThread();
     fetchPosts();
     const interval = setInterval(fetchPosts, 5000); // 5秒ごとに更新
     return () => clearInterval(interval);
   }, [threadId]);
 
+  const fetchLanguages = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/threads/languages`);
+      setLanguages(response.data);
+    } catch (error) {
+      console.error('Failed to fetch languages:', error);
+    }
+  };
+
   const fetchThread = async () => {
     try {
       const response = await axios.get(`${API_URL}/threads/${threadId}`);
-      setThread(response.data);
+      const threadData = response.data;
+      setThread(threadData);
+      
+      // 同じグループの他言語スレッドを取得
+      if (threadData.linked_thread_group_id) {
+        fetchLinkedThreads(threadData.linked_thread_group_id);
+      }
     } catch (error) {
       console.error('Failed to fetch thread:', error);
+    }
+  };
+
+  const fetchLinkedThreads = async (groupId: string) => {
+    try {
+      const response = await axios.get(`${API_URL}/threads`);
+      const allThreads = response.data;
+      const linked = allThreads.filter(
+        (t: Thread) => t.linked_thread_group_id === groupId && t.id !== parseInt(threadId)
+      );
+      setLinkedThreads(linked);
+    } catch (error) {
+      console.error('Failed to fetch linked threads:', error);
     }
   };
 
@@ -114,7 +156,43 @@ export default function ThreadPage() {
 
       {thread && (
         <div className={styles.threadHeader}>
-          <h1>{thread.title}</h1>
+          <div className={styles.threadTitle}>
+            {thread.is_auto_generated === 1 && (
+              <span className={styles.autoBadge}>🤖 Auto</span>
+            )}
+            {thread.language && languages[thread.language] && (
+              <span className={styles.langBadge}>
+                {languages[thread.language].icon} {languages[thread.language].name}
+              </span>
+            )}
+            <h1>{thread.title}</h1>
+          </div>
+          {thread.source_url && (
+            <div className={styles.sourceLink}>
+              📰 <a href={thread.source_url} target="_blank" rel="noopener noreferrer">
+                ニュース元を見る
+              </a>
+            </div>
+          )}
+          {linkedThreads.length > 0 && (
+            <div className={styles.linkedThreads}>
+              <h3>🌍 他の言語で見る:</h3>
+              <div className={styles.linkedList}>
+                {linkedThreads.map((linked) => {
+                  const langConfig = linked.language ? languages[linked.language] : null;
+                  return (
+                    <Link 
+                      key={linked.id} 
+                      href={`/thread/${linked.id}`}
+                      className={styles.linkedItem}
+                    >
+                      {langConfig && `${langConfig.icon} ${langConfig.name}`}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

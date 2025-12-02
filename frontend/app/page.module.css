@@ -86,11 +86,29 @@
   padding: 8px 0;
   border-bottom: 1px solid #333;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .threadItem:hover {
   background-color: rgba(139, 0, 0, 0.1);
   padding-left: 5px;
+}
+
+.autoBadge {
+  background: linear-gradient(135deg, #1a4d1a 0%, #0d260d 100%);
+  color: #88ff88;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid #2d5a2d;
+}
+
+.langIcon {
+  font-size: 16px;
+  cursor: help;
 }
 
 .threadItem a {
@@ -124,6 +142,44 @@
   margin-bottom: 10px;
   color: #ff6666;
   text-shadow: 0 0 5px rgba(255, 102, 102, 0.5);
+}
+
+.languageSelector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.languageSelector label {
+  color: #aaa;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.languageSelect {
+  padding: 6px 10px;
+  border: 1px solid #555;
+  border-radius: 3px;
+  font-size: 13px;
+  background-color: #1a1a1a;
+  color: #d0d0d0;
+  cursor: pointer;
+}
+
+.languageSelect:focus {
+  outline: none;
+  border-color: #8b0000;
+  box-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+}
+
+.languageDesc {
+  color: #888;
+  font-size: 12px;
+  font-style: italic;
 }
 
 .createForm {

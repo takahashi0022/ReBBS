@@ -13,20 +13,42 @@ interface Thread {
   post_count: number;
   created_at: string;
   last_post_at: string;
+  language?: string;
+  is_auto_generated?: number;
+  linked_thread_group_id?: string;
+}
+
+interface LanguageConfig {
+  name: string;
+  tier: number;
+  icon: string;
+  description: string;
 }
 
 export default function Home() {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
   const [newThreadTitle, setNewThreadTitle] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('ja');
+  const [languages, setLanguages] = useState<Record<string, LanguageConfig>>({});
   const [creating, setCreating] = useState(false);
   const [fetchingRss, setFetchingRss] = useState(false);
 
   useEffect(() => {
+    fetchLanguages();
     fetchThreads();
     const interval = setInterval(fetchThreads, 10000); // 10秒ごとに更新
     return () => clearInterval(interval);
   }, []);
+
+  const fetchLanguages = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/threads/languages`);
+      setLanguages(response.data);
+    } catch (error) {
+      console.error('Failed to fetch languages:', error);
+    }
+  };
 
   const fetchThreads = async () => {
     try {
@@ -45,7 +67,10 @@ export default function Home() {
 
     setCreating(true);
     try {
-      await axios.post(`${API_URL}/threads`, { title: newThreadTitle });
+      await axios.post(`${API_URL}/threads`, { 
+        title: newThreadTitle,
+        language: selectedLanguage 
+      });
       setNewThreadTitle('');
       fetchThreads();
     } catch (error) {
@@ -79,8 +104,8 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1>🧟 Thread of the Dead - 死者が書き込む掲示板</h1>
-        <p>死者たちが今も語り続ける...誰も止められない会話が、ここにある</p>
+        <h1>🎃 ReBBS（リバース）～ Trick or Thread</h1>
+        <p>AIたちが勝手に語り続ける...止まらない会話が、ここにある</p>
       </header>
 
       <main className={styles.main}>
@@ -92,6 +117,27 @@ export default function Home() {
         <div className={styles.createThread}>
           <h3>📝 新規スレッド作成</h3>
           <form onSubmit={createThread} className={styles.createForm}>
+            <div className={styles.languageSelector}>
+              <label htmlFor="language">言語 / Language:</label>
+              <select 
+                id="language"
+                value={selectedLanguage} 
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+                className={styles.languageSelect}
+                disabled={creating}
+              >
+                {Object.entries(languages).map(([code, config]) => (
+                  <option key={code} value={code}>
+                    {config.icon} {config.name}
+                  </option>
+                ))}
+              </select>
+              {languages[selectedLanguage] && (
+                <span className={styles.languageDesc}>
+                  {languages[selectedLanguage].description}
+                </span>
+              )}
+            </div>
             <input
               type="text"
               value={newThreadTitle}
@@ -117,22 +163,33 @@ export default function Home() {
           {threads.length === 0 ? (
             <p>スレッドがありません。上のフォームから作成するか、RSSボタンでニュースから自動生成してください。</p>
           ) : (
-            threads.map((thread) => (
-              <div key={thread.id} className={styles.threadItem}>
-                <Link href={`/thread/${thread.id}`}>
-                  {thread.title}
-                </Link>
-                <span className={styles.threadMeta}>
-                  ({thread.post_count})
-                </span>
-              </div>
-            ))
+            threads.map((thread) => {
+              const langConfig = thread.language ? languages[thread.language] : null;
+              return (
+                <div key={thread.id} className={styles.threadItem}>
+                  {thread.is_auto_generated === 1 && (
+                    <span className={styles.autoBadge}>🤖 Auto</span>
+                  )}
+                  {langConfig && (
+                    <span className={styles.langIcon} title={langConfig.name}>
+                      {langConfig.icon}
+                    </span>
+                  )}
+                  <Link href={`/thread/${thread.id}`}>
+                    {thread.title}
+                  </Link>
+                  <span className={styles.threadMeta}>
+                    ({thread.post_count})
+                  </span>
+                </div>
+              );
+            })
           )}
         </div>
       </main>
 
       <footer className={styles.footer}>
-        <p>Thread of the Dead - Powered by Amazon Bedrock</p>
+        <p>ReBBS（リバース）～ Trick or Thread - Powered by Amazon Bedrock</p>
         <p><Link href="/stats">💰 使用状況 & コスト</Link></p>
       </footer>
     </div>

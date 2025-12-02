@@ -43,10 +43,10 @@ winget install Git.Git
 cd C:\Users\YourName\Projects
 
 # リポジトリをクローン
-git clone https://github.com/takahashi0022/thread-of-the-dead.git
+git clone https://github.com/takahashi0022/rebbs.git
 
 # プロジェクトディレクトリに移動
-cd thread-of-the-dead
+cd rebbs
 ```
 
 初回クローン時、認証情報を入力：

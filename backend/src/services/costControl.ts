@@ -7,9 +7,9 @@ interface UsageStats {
 }
 
 const LIMITS = {
-  DAILY_MAX_REQUESTS: parseInt(process.env.DAILY_MAX_REQUESTS || '500'),
-  MONTHLY_MAX_REQUESTS: parseInt(process.env.MONTHLY_MAX_REQUESTS || '10000'),
-  MAX_REQUESTS_PER_MINUTE: parseInt(process.env.MAX_REQUESTS_PER_MINUTE || '10'),
+  DAILY_MAX_REQUESTS: parseInt(process.env.DAILY_MAX_REQUESTS || '5000'),
+  MONTHLY_MAX_REQUESTS: parseInt(process.env.MONTHLY_MAX_REQUESTS || '100000'),
+  MAX_REQUESTS_PER_MINUTE: parseInt(process.env.MAX_REQUESTS_PER_MINUTE || '100'),
 };
 
 const requestTimestamps: number[] = [];
@@ -141,7 +141,7 @@ export function getUsageStats(): Promise<UsageStats & { limits: typeof LIMITS }>
 
 export function estimateCost(requests: number): { usd: number; jpy: number } {
   const INPUT_TOKENS_PER_REQUEST = 300;
-  const OUTPUT_TOKENS_PER_REQUEST = 50;
+  const OUTPUT_TOKENS_PER_REQUEST = 100; // 100→200に増やしたので平均100トークン
   const INPUT_COST_PER_1M = 0.25;
   const OUTPUT_COST_PER_1M = 1.25;
   const USD_TO_JPY = 150;

@@ -94,6 +94,126 @@ export const authorNames = [
   '名無しさん＠毎日が日曜日',
 ];
 
-export function getRandomAuthorName(): string {
-  return authorNames[Math.floor(Math.random() * authorNames.length)];
+// 言語別のハンドルネーム
+const authorNamesByLanguage: Record<string, string[]> = {
+  ja: authorNames,
+  
+  en: [
+    'Anonymous',
+    'Anon',
+    'Anonymous Coward',
+    'Anonymous User',
+    'Nameless',
+    'Nobody',
+    'Some Guy',
+    'Random Anon',
+    'Lurker',
+    'Newfag',
+    'Oldfag',
+    'Based Anon',
+    'Cringe Anon',
+    'Anon #42069',
+    'Anon #1337',
+  ],
+  
+  zh: [
+    '匿名用户',
+    '路过的',
+    '吃瓜群众',
+    '匿名网友',
+    '热心网友',
+    '神秘网友',
+    '匿名',
+    '路人甲',
+    '路人乙',
+    '吃瓜的',
+    '围观群众',
+    '匿名人士',
+    '网友',
+    '某网友',
+    '神秘人',
+  ],
+  
+  ko: [
+    '익명',
+    '무명',
+    '이름없음',
+    '익명의 누군가',
+    '지나가던 사람',
+    '익명 유저',
+    '무명씨',
+    '익명인',
+    '누군가',
+    '아무개',
+    '익명123',
+    '무명인',
+    '익명의 용자',
+    '지나가는 사람',
+  ],
+  
+  es: [
+    'Anónimo',
+    'Usuario Anónimo',
+    'Sin Nombre',
+    'Desconocido',
+    'Alguien',
+    'Nadie',
+    'Usuario',
+    'Anon',
+    'Fulano',
+    'Mengano',
+    'Anónimo #123',
+    'Usuario Random',
+    'El Anónimo',
+  ],
+  
+  fr: [
+    'Anonyme',
+    'Utilisateur Anonyme',
+    'Sans Nom',
+    'Inconnu',
+    'Quelqu\'un',
+    'Personne',
+    'Anon',
+    'Utilisateur',
+    'Le Khey',
+    'Anonyme #42',
+    'Random',
+    'Inconnu du 18-25',
+  ],
+  
+  de: [
+    'Anonym',
+    'Anonymer Nutzer',
+    'Namenlos',
+    'Unbekannt',
+    'Jemand',
+    'Niemand',
+    'Anon',
+    'Nutzer',
+    'Bernd',
+    'Anonym #123',
+    'Zufälliger Anon',
+    'Der Anonyme',
+  ],
+  
+  pt: [
+    'Anônimo',
+    'Usuário Anônimo',
+    'Sem Nome',
+    'Desconhecido',
+    'Alguém',
+    'Ninguém',
+    'Anon',
+    'Usuário',
+    'Fulano',
+    'Anônimo #123',
+    'Usuário Aleatório',
+    'O Anônimo',
+  ],
+};
+
+export function getRandomAuthorName(language: string = 'ja'): string {
+  const names = authorNamesByLanguage[language] || authorNamesByLanguage['ja'];
+  return names[Math.floor(Math.random() * names.length)];
 }

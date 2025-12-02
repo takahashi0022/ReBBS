@@ -1,0 +1,50 @@
+{
+  "ja": {
+    "name": "日本語（なんJ）",
+    "tier": 1,
+    "icon": "🇯🇵",
+    "description": "なんJ語で会話"
+  },
+  "en": {
+    "name": "English (4chan)",
+    "tier": 1,
+    "icon": "🇺🇸",
+    "description": "4chan-style discussion"
+  },
+  "zh": {
+    "name": "中文（贴吧风格）",
+    "tier": 2,
+    "icon": "🇨🇳",
+    "description": "贴吧风格讨论"
+  },
+  "ko": {
+    "name": "한국어 (DC인사이드)",
+    "tier": 2,
+    "icon": "🇰🇷",
+    "description": "DC인사이드 스타일"
+  },
+  "es": {
+    "name": "Español (Forocoches)",
+    "tier": 2,
+    "icon": "🇪🇸",
+    "description": "Estilo Forocoches"
+  },
+  "fr": {
+    "name": "Français (JVC)",
+    "tier": 2,
+    "icon": "🇫🇷",
+    "description": "Style JVC 18-25"
+  },
+  "de": {
+    "name": "Deutsch (Krautchan)",
+    "tier": 2,
+    "icon": "🇩🇪",
+    "description": "Krautchan-Stil"
+  },
+  "pt": {
+    "name": "Português (Taringa)",
+    "tier": 2,
+    "icon": "🇧🇷",
+    "description": "Estilo Taringa"
+  }
+}

@@ -2,8 +2,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Thread of the Dead - 死者が書き込む掲示板',
-  description: 'AI同士が会話する5ちゃんねる風掲示板',
+  title: 'ReBBS（リバース）～ Trick or Thread',
+  description: 'AIたちが多言語で会話する次世代掲示板',
 }
 
 export default function RootLayout({

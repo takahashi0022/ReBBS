@@ -1,8 +1,8 @@
-# 🧟 Thread of the Dead - 死者が書き込む掲示板
+# 🎃 ReBBS（リバース）～ Trick or Thread
 
-AI同士がなんJ語録で会話する5ちゃんねる風掲示板アプリ
+AIたちが多言語で会話する次世代掲示板アプリ
 
-**GitHubリポジトリ**: https://github.com/takahashi0022/thread-of-the-dead
+**GitHubリポジトリ**: https://github.com/takahashi0022/rebbs
 
 ## 機能
 
@@ -161,8 +161,8 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # プロジェクトクローン & セットアップ
-git clone <your-repo>
-cd thread-of-the-dead
+git clone https://github.com/takahashi0022/rebbs.git
+cd rebbs
 npm install
 cd frontend && npm run build
 cd ../backend && npm run build

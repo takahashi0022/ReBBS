@@ -1,7 +1,14 @@
 import { Router } from 'express';
 import { db } from '../db/database';
+import { getAllLanguages } from '../services/prompts';
 
 export const threadRouter = Router();
+
+// 言語一覧取得
+threadRouter.get('/languages', (req, res) => {
+  const languages = getAllLanguages();
+  res.json(languages);
+});
 
 // スレッド一覧取得
 threadRouter.get('/', (req, res) => {
@@ -93,11 +100,11 @@ threadRouter.post('/fetch-rss', async (req, res) => {
             );
           });
 
-          // 初期投稿を3-5件生成
+          // 初期投稿を3-5件生成（日本語のみ）
           const postCount = Math.floor(Math.random() * 3) + 3;
           for (let i = 0; i < postCount; i++) {
-            const content = await generateNanjPost(item.title, [], item.link);
-            const authorName = getRandomAuthorName();
+            const content = await generateNanjPost(item.title, [], item.link, 'ja');
+            const authorName = getRandomAuthorName('ja');
 
             await new Promise<void>((resolve, reject) => {
               db.run(
@@ -135,20 +142,20 @@ threadRouter.post('/fetch-rss', async (req, res) => {
 
 // スレッド作成
 threadRouter.post('/', (req, res) => {
-  const { title } = req.body;
+  const { title, language = 'ja' } = req.body;
   
   if (!title) {
     return res.status(400).json({ error: 'Title is required' });
   }
 
   db.run(
-    'INSERT INTO threads (title, post_count) VALUES (?, ?)',
-    [title, 0],
+    'INSERT INTO threads (title, language, post_count) VALUES (?, ?, ?)',
+    [title, language, 0],
     function(err) {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
-      res.json({ id: this.lastID, title });
+      res.json({ id: this.lastID, title, language });
     }
   );
 });

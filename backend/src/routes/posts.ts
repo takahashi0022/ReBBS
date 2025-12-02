@@ -21,8 +21,8 @@ postRouter.get('/thread/:threadId', (req, res) => {
   );
 });
 
-// ユーザー投稿
-postRouter.post('/user/:threadId', (req, res) => {
+// ユーザー投稿（投稿後、AI反応を2-3件自動生成）
+postRouter.post('/user/:threadId', async (req, res) => {
   const { threadId } = req.params;
   const { content, authorName } = req.body;
   
@@ -40,17 +40,68 @@ postRouter.post('/user/:threadId', (req, res) => {
         return res.status(500).json({ error: err.message });
       }
 
+      const userPostId = this.lastID;
+
       db.run(
         'UPDATE threads SET post_count = post_count + 1, last_post_at = CURRENT_TIMESTAMP WHERE id = ?',
         [threadId]
       );
 
+      // ユーザー投稿を返す
       res.json({ 
-        id: this.lastID, 
+        id: userPostId, 
         thread_id: threadId, 
         author_name: finalAuthorName, 
         content: content.trim() 
       });
+
+      // バックグラウンドでAI反応を2-3件生成（ユーザーを待たせない）
+      setTimeout(async () => {
+        try {
+          // スレッド情報とコンテキスト取得（言語も取得）
+          db.get('SELECT title, source_url, language FROM threads WHERE id = ?', [threadId], async (err, thread: any) => {
+            if (err || !thread) return;
+
+            db.all(
+              'SELECT content FROM posts WHERE thread_id = ? ORDER BY created_at DESC LIMIT 10',
+              [threadId],
+              async (err, posts: any[]) => {
+                if (err) return;
+
+                const previousPosts = posts.map(p => p.content).reverse();
+                const reactionCount = Math.floor(Math.random() * 2) + 2; // 2-3件
+                const language = thread.language || 'ja';
+
+                for (let i = 0; i < reactionCount; i++) {
+                  const aiContent = await generateNanjPost(thread.title, previousPosts, thread.source_url, language);
+                  const aiAuthorName = getRandomAuthorName(language);
+
+                  await new Promise<void>((resolve) => {
+                    db.run(
+                      'INSERT INTO posts (thread_id, author_name, content) VALUES (?, ?, ?)',
+                      [threadId, aiAuthorName, aiContent],
+                      () => {
+                        previousPosts.push(aiContent);
+                        resolve();
+                      }
+                    );
+                  });
+
+                  db.run(
+                    'UPDATE threads SET post_count = post_count + 1, last_post_at = CURRENT_TIMESTAMP WHERE id = ?',
+                    [threadId]
+                  );
+
+                  // レート制限対策
+                  await new Promise(resolve => setTimeout(resolve, 1500));
+                }
+              }
+            );
+          });
+        } catch (error) {
+          console.error('AI reaction generation error:', error);
+        }
+      }, 500); // 0.5秒後に開始
     }
   );
 });
@@ -60,8 +111,8 @@ postRouter.post('/generate-single/:threadId', async (req, res) => {
   const { threadId } = req.params;
   
   try {
-    // スレッド情報取得
-    db.get('SELECT title, source_url FROM threads WHERE id = ?', [threadId], async (err, thread: any) => {
+    // スレッド情報取得（言語も取得）
+    db.get('SELECT title, source_url, language FROM threads WHERE id = ?', [threadId], async (err, thread: any) => {
       if (err || !thread) {
         return res.status(404).json({ error: 'Thread not found' });
       }
@@ -72,9 +123,10 @@ postRouter.post('/generate-single/:threadId', async (req, res) => {
         [threadId],
         async (err, existingPosts: any[]) => {
           const previousPosts = existingPosts.map(p => p.content).reverse();
+          const language = thread.language || 'ja';
           
-          const content = await generateNanjPost(thread.title, previousPosts, thread.source_url);
-          const authorName = getRandomAuthorName();
+          const content = await generateNanjPost(thread.title, previousPosts, thread.source_url, language);
+          const authorName = getRandomAuthorName(language);
           
           // 投稿保存
           db.run(
@@ -101,32 +153,33 @@ postRouter.post('/generate-single/:threadId', async (req, res) => {
   }
 });
 
-// AI投稿生成（会話形式で10往復）
+// AI投稿生成（会話形式で30往復 - 会話の応酬を強化）
 postRouter.post('/generate/:threadId', async (req, res) => {
   const { threadId } = req.params;
   
   try {
-    // スレッド情報取得
-    db.get('SELECT title, source_url FROM threads WHERE id = ?', [threadId], async (err, thread: any) => {
+    // スレッド情報取得（言語も取得）
+    db.get('SELECT title, source_url, language FROM threads WHERE id = ?', [threadId], async (err, thread: any) => {
       if (err || !thread) {
         return res.status(404).json({ error: 'Thread not found' });
       }
 
       // 過去の投稿取得
       db.all(
-        'SELECT content FROM posts WHERE thread_id = ? ORDER BY created_at DESC LIMIT 10',
+        'SELECT content FROM posts WHERE thread_id = ? ORDER BY created_at DESC LIMIT 15',
         [threadId],
         async (err, existingPosts: any[]) => {
           const previousPosts = existingPosts.map(p => p.content).reverse();
           const newPosts = [];
+          const language = thread.language || 'ja';
           
-          // 10往復の会話を生成
-          const conversationCount = 10;
+          // 30往復の会話を生成（会話の継続性を高める）
+          const conversationCount = 30;
           
           for (let i = 0; i < conversationCount; i++) {
             const allPosts = [...previousPosts, ...newPosts];
-            const content = await generateNanjPost(thread.title, allPosts, thread.source_url);
-            const authorName = getRandomAuthorName();
+            const content = await generateNanjPost(thread.title, allPosts, thread.source_url, language);
+            const authorName = getRandomAuthorName(language);
             
             // 投稿保存
             await new Promise<void>((resolve, reject) => {

@@ -30,12 +30,97 @@
   box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
 }
 
+.threadTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
 .threadHeader h1 {
   font-size: 18px;
   font-weight: bold;
   color: #ff6666;
   text-shadow: 0 0 10px rgba(255, 102, 102, 0.6);
   line-height: 1.6;
+  margin: 0;
+}
+
+.autoBadge {
+  background: linear-gradient(135deg, #1a4d1a 0%, #0d260d 100%);
+  color: #88ff88;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  border: 1px solid #2d5a2d;
+  white-space: nowrap;
+}
+
+.langBadge {
+  background: linear-gradient(135deg, #1a1a4d 0%, #0d0d26 100%);
+  color: #88ccff;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  border: 1px solid #2d2d5a;
+  white-space: nowrap;
+}
+
+.sourceLink {
+  margin-top: 10px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.sourceLink a {
+  color: #88ccff;
+  text-decoration: none;
+}
+
+.sourceLink a:hover {
+  color: #aaddff;
+  text-decoration: underline;
+}
+
+.linkedThreads {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  border: 1px solid #444;
+}
+
+.linkedThreads h3 {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+.linkedList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.linkedItem {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #1a1a4d 0%, #0d0d26 100%);
+  color: #88ccff;
+  border: 1px solid #2d2d5a;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 12px;
+  transition: all 0.3s;
+}
+
+.linkedItem:hover {
+  background: linear-gradient(135deg, #2d2d6d 0%, #1a1a3d 100%);
+  box-shadow: 0 0 10px rgba(136, 204, 255, 0.5);
 }
 
 .posts {
