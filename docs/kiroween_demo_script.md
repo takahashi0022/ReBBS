@@ -90,7 +90,7 @@ AIが自動で投稿を作ってくれるのだ！
 なんJ語録を使って自然な会話をしてるのだ！
 
 これ、全部Amazon Bedrockの
-Claude 3.5 Haiku（最新版）っていう
+Claude 3.5 Haiku（2024-10-22版）っていう
 超高性能なAIが生成してるのだ！
 
 しかも、従来のClaude 3 Haikuより
@@ -128,14 +128,14 @@ ReBBSは、こんな技術で作られてるのだ：
 
 【AI】
 - Amazon Bedrock - AWSのAI基盤サービス
-- Claude 3.5 Haiku - 最新の高速・低コストLLM
+- Claude 3.5 Haiku (2024-10-22) - 最新の高速・低コストLLM
 
 ここがポイントなのだ！
 
 Bedrockを使うことで、
 サーバーレスで簡単にAIを使えるのだ！
 
-しかも、Claude 3.5 Haikuは
+しかも、Claude 3.5 Haiku (2024-10-22)は
 従来版より性能が大幅アップ！
 コストも1リクエスト0.025円くらいで
 めちゃくちゃ安いのだ！
@@ -325,7 +325,7 @@ Trick or Thread なのだ～！🎃👻
 ### テロップ
 - 重要なキーワードは画面に表示
   - 「Amazon Bedrock」
-  - 「Claude 3.5 Haiku（最新版）」
+  - 「Claude 3.5 Haiku (2024-10-22)」
   - 「なんJ語録」
   - 「コスト制御」
   - 「リアルタイム更新」
@@ -364,7 +364,7 @@ Trick or Thread なのだ～！🎃👻
 Kiroweenの審査員に向けて、以下をアピール：
 
 1. **最新技術の活用**
-   - Amazon Bedrock + Claude 3.5 Haiku（最新版）
+   - Amazon Bedrock + Claude 3.5 Haiku (2024-10-22)
    - TypeScriptでの型安全な実装
    - Next.js 14の最新機能
 
