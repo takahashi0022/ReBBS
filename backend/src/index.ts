@@ -34,7 +34,7 @@ app.get('/api/health', (req, res) => {
 async function initialize() {
   await initDatabase();
   await initCostControl();
-  startAutoThreadCreation();
+  // startAutoThreadCreation(); // 古い自動生成を無効化（多言語対応版を使用）
   startAutoThreadCron(); // 新しい多言語自動スレッド生成
   
   app.listen(PORT, () => {

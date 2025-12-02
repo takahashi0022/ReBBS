@@ -189,18 +189,11 @@ export async function generateNanjPost(topic: string, previousPosts: string[] = 
     pt: 'Responda apenas em português.',
   }[language] || 'Reply in your designated language only.';
 
-  // 日本語の場合は既存のパターン検出を使用
-  let patternPrompt = '';
-  if (language === 'ja') {
-    const pattern = detectConversationPattern(topic, recentPosts);
-    patternPrompt = generatePatternPrompt(pattern, topic, recentPosts);
-  } else {
-    // 他言語の場合はシンプルな指示
-    const lastPost = recentPosts[recentPosts.length - 1] || '';
-    patternPrompt = lastPost 
-      ? `Previous post: "${lastPost}"\n\nReact to this post naturally in your language style. ${languageReminder}`
-      : `Discuss this topic naturally in your language style. ${languageReminder}`;
-  }
+  // すべての言語でシンプルな指示を使用
+  const lastPost = recentPosts[recentPosts.length - 1] || '';
+  const patternPrompt = lastPost 
+    ? `Previous post: "${lastPost}"\n\nReact to this post naturally. ${languageReminder}`
+    : `Discuss this topic naturally. ${languageReminder}`;
 
   const prompt = `${basePrompt}
 
@@ -209,7 +202,7 @@ ${topic}${sourceContext}${context}
 
 ${patternPrompt}
 
-IMPORTANT: ${languageReminder}
+CRITICAL: ${languageReminder} DO NOT mix languages!
 
 Your response:`;
 
@@ -220,7 +213,7 @@ Your response:`;
       accept: 'application/json',
       body: JSON.stringify({
         anthropic_version: 'bedrock-2023-05-31',
-        max_tokens: 200,
+        max_tokens: 150,  // 適度な長さ（短すぎず長すぎず）
         temperature: 1.0,
         top_p: 0.95,
         messages: [
