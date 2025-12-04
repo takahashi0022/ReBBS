@@ -16,7 +16,7 @@
 ### 前提条件
 
 - Node.js v20以上がインストール済み
-- Amazon Bedrock（Claude 3 Haiku）が有効化済み
+- Amazon Bedrock（Claude 3.5 Haiku）が有効化済み
 - IAMロールまたはアクセスキーが設定済み
 
 詳細は [AWS_BEDROCK_SETUP.md](./AWS_BEDROCK_SETUP.md) を参照
@@ -67,7 +67,7 @@ AWS_REGION=us-east-1
 # IAMロール使用時は以下2行は不要
 # AWS_ACCESS_KEY_ID=your_access_key
 # AWS_SECRET_ACCESS_KEY=your_secret_key
-BEDROCK_MODEL_ID=anthropic.claude-3-haiku-20240307-v1:0
+BEDROCK_MODEL_ID=anthropic.claude-3-5-haiku-20241022-v1:0
 
 # RSSフィード（オプション）
 RSS_FEEDS=https://news.yahoo.co.jp/rss/topics/top-picks.xml,https://www3.nhk.or.jp/rss/news/cat0.xml
@@ -323,7 +323,7 @@ PORT=3002
 **解決策:**
 1. [AWS_BEDROCK_SETUP.md](./AWS_BEDROCK_SETUP.md) を参照
 2. IAMロールまたはアクセスキーの権限を確認
-3. Model accessでClaude 3 Haikuが有効化されているか確認
+3. Model accessでClaude 3.5 Haikuが有効化されているか確認
 
 ### ❌ フロントエンドが起動しない
 

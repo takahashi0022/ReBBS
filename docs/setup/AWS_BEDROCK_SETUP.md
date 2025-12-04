@@ -8,7 +8,7 @@
 
 ## Bedrock利用可能リージョン（2024年11月時点）
 
-Claude 3 Haikuが利用可能な主要リージョン:
+Claude 3.5 Haikuが利用可能な主要リージョン:
 - `us-east-1` (バージニア北部) ✅ 推奨
 - `us-west-2` (オレゴン)
 - `ap-northeast-1` (東京) ✅ 日本から推奨
@@ -34,7 +34,7 @@ AWSは2024年後半にBedrockのモデルアクセス方式を変更しました
 2. リージョンを選択（例: `us-east-1` または `ap-northeast-1`）
 3. **Amazon Bedrock**サービスに移動
 4. 左メニューから「**Playgrounds**」→「**Chat**」を選択
-5. モデル選択で「**Anthropic Claude 3 Haiku**」を選択
+5. モデル選択で「**Anthropic Claude 3.5 Haiku**」を選択
 6. 何かメッセージを送信（例: "Hello"）
 7. 初回利用時に自動的にサブスクライブされる
 
@@ -52,7 +52,7 @@ AWSは2024年後半にBedrockのモデルアクセス方式を変更しました
 4. 左メニューから「**Model access**」を選択
 5. 「**Manage model access**」ボタンをクリック
 6. **Anthropic** セクションで以下を選択:
-   - ✅ Claude 3 Haiku
+   - ✅ Claude 3.5 Haiku
 7. 「**Request model access**」をクリック
 8. 利用規約に同意
 9. 「**Submit**」をクリック
@@ -65,7 +65,7 @@ AWSは2024年後半にBedrockのモデルアクセス方式を変更しました
 # モデルアクセス状況確認
 aws bedrock list-foundation-models --region us-east-1 \
   --by-provider anthropic \
-  --query 'modelSummaries[?contains(modelId, `claude-3-haiku`)].{ModelId:modelId,Status:modelLifecycle.status}'
+  --query 'modelSummaries[?contains(modelId, `claude-3-5-haiku`)].{ModelId:modelId,Status:modelLifecycle.status}'
 ```
 
 ### 2. IAM権限の設定
@@ -89,7 +89,6 @@ cat > bedrock-policy.json << 'EOF'
         "bedrock:InvokeModelWithResponseStream"
       ],
       "Resource": [
-        "arn:aws:bedrock:*::foundation-model/anthropic.claude-3-haiku-*",
         "arn:aws:bedrock:*::foundation-model/anthropic.claude-3-5-haiku-*"
       ]
     }
@@ -147,7 +146,7 @@ aws ec2 associate-iam-instance-profile \
 ```env
 # AWS認証情報は不要（IAMロールから自動取得）
 AWS_REGION=us-east-1
-BEDROCK_MODEL_ID=anthropic.claude-3-haiku-20240307-v1:0
+BEDROCK_MODEL_ID=anthropic.claude-3-5-haiku-20241022-v1:0
 ```
 
 #### 方法B: IAMユーザーのアクセスキー
@@ -173,7 +172,7 @@ aws iam create-access-key --user-name your-username
 AWS_REGION=us-east-1
 AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
 AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-BEDROCK_MODEL_ID=anthropic.claude-3-haiku-20240307-v1:0
+BEDROCK_MODEL_ID=anthropic.claude-3-5-haiku-20241022-v1:0
 ```
 
 ### 3. 接続テスト
@@ -201,7 +200,7 @@ async function testBedrock() {
   
   try {
     const command = new InvokeModelCommand({
-      modelId: 'anthropic.claude-3-haiku-20240307-v1:0',
+      modelId: 'anthropic.claude-3-5-haiku-20241022-v1:0',
       contentType: 'application/json',
       accept: 'application/json',
       body: JSON.stringify({
@@ -231,11 +230,11 @@ async function testBedrock() {
     if (error.name === 'AccessDeniedException') {
       console.error('\n💡 解決方法:');
       console.error('   1. IAM権限を確認してください');
-      console.error('   2. Model accessでClaude 3 Haikuが有効化されているか確認');
+      console.error('   2. Model accessでClaude 3.5 Haikuが有効化されているか確認');
       console.error('   3. リージョンが正しいか確認（backend/.env）');
     } else if (error.name === 'ValidationException') {
       console.error('\n💡 解決方法:');
-      console.error('   1. Model accessでClaude 3 Haikuを有効化してください');
+      console.error('   1. Model accessでClaude 3.5 Haikuを有効化してください');
       console.error('   2. モデルIDが正しいか確認');
     } else if (error.code === 'CredentialsError') {
       console.error('\n💡 解決方法:');
@@ -275,7 +274,7 @@ node test-bedrock.js
 ```bash
 aws bedrock-runtime invoke-model \
   --region us-east-1 \
-  --model-id anthropic.claude-3-haiku-20240307-v1:0 \
+  --model-id anthropic.claude-3-5-haiku-20241022-v1:0 \
   --content-type application/json \
   --accept application/json \
   --body '{"anthropic_version":"bedrock-2023-05-31","max_tokens":100,"messages":[{"role":"user","content":"こんにちは"}]}' \
@@ -307,7 +306,7 @@ aws iam list-attached-user-policies --user-name your-username
 
 **解決策**:
 1. Model accessで承認されているか確認
-2. モデルIDを確認: `anthropic.claude-3-haiku-20240307-v1:0`
+2. モデルIDを確認: `anthropic.claude-3-5-haiku-20241022-v1:0`
 
 ```bash
 # 利用可能なモデル一覧
@@ -352,7 +351,7 @@ AWS_REGION=us-east-1  # または ap-northeast-1
     "bedrock:InvokeModel"  // 必要最小限
   ],
   "Resource": [
-    "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-haiku-*"
+    "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-5-haiku-*"
   ]
 }
 ```
@@ -379,8 +378,8 @@ aws cloudtrail lookup-events \
 
 ### 1. 適切なモデル選択
 
-- **Claude 3 Haiku**: 最安・高速（推奨）
-- **Claude 3 Sonnet**: 中価格・バランス
+- **Claude 3.5 Haiku**: 最安・高速（推奨）
+- **Claude 3.5 Sonnet**: 中価格・バランス
 - **Claude 3 Opus**: 高価格・高性能
 
 ### 2. トークン数の最適化
@@ -406,7 +405,7 @@ max_tokens: 100  // 短い返信のみ
 aws cloudwatch get-metric-statistics \
   --namespace AWS/Bedrock \
   --metric-name Invocations \
-  --dimensions Name=ModelId,Value=anthropic.claude-3-haiku-20240307-v1:0 \
+  --dimensions Name=ModelId,Value=anthropic.claude-3-5-haiku-20241022-v1:0 \
   --start-time 2024-11-20T00:00:00Z \
   --end-time 2024-11-21T00:00:00Z \
   --period 3600 \
@@ -427,7 +426,7 @@ AWSコンソール > Cost Explorer > Bedrockのコストを確認
 
 ✅ **推奨設定**:
 - リージョン: `us-east-1` または `ap-northeast-1`
-- モデル: `anthropic.claude-3-haiku-20240307-v1:0`
+- モデル: `anthropic.claude-3-5-haiku-20241022-v1:0`
 - 認証: EC2インスタンスロール（本番）/ アクセスキー（開発）
 
 これで安全にBedrockを利用できます！

@@ -121,7 +121,7 @@ AWS_REGION=ap-northeast-1
 AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
 AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 
-BEDROCK_MODEL_ID=anthropic.claude-3-haiku-20240307-v1:0
+BEDROCK_MODEL_ID=anthropic.claude-3-5-haiku-20241022-v1:0
 
 RSS_FEEDS=https://news.yahoo.co.jp/rss/topics/top-picks.xml
 
