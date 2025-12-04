@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Markdown Consistency Checker",
+  "description": "When any markdown file is edited, automatically scan all related markdown files to detect and fix inconsistent project name references (e.g., ensuring \"Thread of the Dead\" is consistently updated to \"ReBBS\" across all documentation)",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.md"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A markdown file has been updated. Please perform a comprehensive consistency check across all markdown files in the project:\n\n1. Identify any project name or terminology changes in the recently edited file\n2. Scan ALL markdown files (in docs/, root directory, and any subdirectories) for inconsistent references\n3. Check for outdated project names, terminology mismatches, or references that should be updated\n4. Report any inconsistencies found with specific file locations and line numbers\n5. Automatically fix the inconsistencies by updating all affected markdown files to maintain consistency\n\nFocus particularly on project names, feature names, and key terminology that should be consistent across the documentation."
+  }
+}

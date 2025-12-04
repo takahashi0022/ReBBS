@@ -109,18 +109,22 @@
 
 .linkedItem {
   padding: 6px 12px;
-  background: linear-gradient(135deg, #1a1a4d 0%, #0d0d26 100%);
-  color: #88ccff;
-  border: 1px solid #2d2d5a;
+  background: linear-gradient(135deg, #2d1a1a 0%, #1a0d0d 100%);
+  color: #ff9999;
+  border: 1px solid #5a2d2d;
   border-radius: 3px;
   text-decoration: none;
   font-size: 12px;
+  font-weight: 500;
   transition: all 0.3s;
+  text-shadow: 0 0 3px rgba(255, 153, 153, 0.3);
 }
 
 .linkedItem:hover {
-  background: linear-gradient(135deg, #2d2d6d 0%, #1a1a3d 100%);
-  box-shadow: 0 0 10px rgba(136, 204, 255, 0.5);
+  background: linear-gradient(135deg, #4d2d2d 0%, #2d1a1a 100%);
+  color: #ffbbbb;
+  box-shadow: 0 0 10px rgba(255, 153, 153, 0.5);
+  text-shadow: 0 0 5px rgba(255, 153, 153, 0.5);
 }
 
 .posts {
