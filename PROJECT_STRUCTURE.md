@@ -1,11 +1,11 @@
-# 📁 Thread of the Dead - プロジェクト構成
+# 📁 ReBBS - プロジェクト構成
 
-このドキュメントは、Thread of the Deadプロジェクトのフォルダ構成とファイルの役割を説明します。
+このドキュメントは、ReBBSプロジェクトのフォルダ構成とファイルの役割を説明します。
 
 ## 📂 ディレクトリ構成
 
 ```
-Thread_of_the_Dead/
+ReBBS/
 │
 ├── 📄 README.md                    # プロジェクト概要（最初に読むファイル）
 ├── 📄 PROJECT_STRUCTURE.md         # このファイル（プロジェクト構成の説明）

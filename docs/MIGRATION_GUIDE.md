@@ -13,7 +13,7 @@
 ## 📂 新しいフォルダ構成
 
 ```
-Thread_of_the_Dead/
+ReBBS/
 ├── README.md                       # プロジェクト概要
 ├── PROJECT_STRUCTURE.md            # フォルダ構成の説明
 ├── package.json
@@ -210,7 +210,7 @@ mkdir docs/new-category
 
 ### Before（整理前）
 ```
-Thread_of_the_Dead/
+ReBBS/
 ├── README.md
 ├── STARTUP_GUIDE.md
 ├── LOCAL_DEV_SETUP.md
@@ -233,7 +233,7 @@ Thread_of_the_Dead/
 
 ### After（整理後）
 ```
-Thread_of_the_Dead/
+ReBBS/
 ├── README.md
 ├── PROJECT_STRUCTURE.md
 ├── START.bat

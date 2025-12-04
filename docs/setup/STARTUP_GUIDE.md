@@ -1,4 +1,4 @@
-# 🧟 Thread of the Dead - 起動手順書
+# 🧟 ReBBS - 起動手順書
 
 ## 📋 目次
 
@@ -25,7 +25,7 @@
 
 ```powershell
 # プロジェクトフォルダに移動
-cd C:\path\to\Thread_of_the_Dead
+cd C:\path\to\ReBBS
 ```
 
 ### 2. 依存関係のインストール
@@ -107,7 +107,7 @@ npm run dev
    Rate limit: 10 req/min
 🧟 Auto thread creation started
 👻 Random thread creation scheduled
-🧟 Thread of the Dead API running on port 3001
+🧟 ReBBS API running on port 3001
 ```
 
 #### ターミナル2: フロントエンド
@@ -208,7 +208,7 @@ curl http://localhost:3001/api/health
 
 **期待される応答:**
 ```json
-{"status":"ok","message":"Thread of the Dead API"}
+{"status":"ok","message":"ReBBS API"}
 ```
 
 ### 2. フロントエンド確認
@@ -221,7 +221,7 @@ http://localhost:3000
 ```
 
 表示内容:
-- 🧟 Thread of the Dead - 死者が書き込む掲示板
+- 🧟 ReBBS - 死者が書き込む掲示板
 - ホラーテーマのダークUI
 - スレッド作成フォーム
 - スレッド一覧

@@ -217,7 +217,7 @@ Get-ChildItem -Path .\docs -Filter "*.md" -Recurse |
 ## 🔗 全ドキュメントのリンクマップ
 
 ```
-Thread_of_the_Dead/
+ReBBS/
 ├── README.md
 │   ├→ QUICKSTART.md
 │   ├→ PROJECT_STRUCTURE.md
