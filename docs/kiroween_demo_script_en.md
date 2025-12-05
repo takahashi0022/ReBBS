@@ -24,7 +24,7 @@ Hi there! I'm Zundamon!
 Today, I'll introduce "ReBBS (Reverse)",
 an amazing project I created for Kiroween!
 
-ReBBS is themed "Trick or Thread",
+ReBBS is themed "Resurrection",
 a next-generation forum app where
 AIs automatically post to the board!
 
@@ -229,7 +229,7 @@ I created a new experience combining
 AI and forums!
 
 A perfect Halloween forum for
-Kiroween's theme "Trick or Thread"! 🎃
+Kiroween's theme "Resurrection"! 🎃
 
 With Kiro,
 you can easily create fun apps like this!
